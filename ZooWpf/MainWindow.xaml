@@ -1,0 +1,59 @@
+﻿<Window x:Class="ZooWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZooWpf"
+        xmlns:local1="clr-namespace:ZooLabs.Models;assembly=ZooLabs"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        
+        <ListBox x:Name="Cages" Grid.Column="0" ItemsSource="{Binding Cages}" SelectedItem="{Binding SelectedCage}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                        <TextBlock Text="{Binding Path=AnimalType}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox x:Name="Animals_in_Cage" Grid.Column="2" ItemsSource="{Binding AnimalsInCage}" SelectedItem="{Binding SelectedAnimal}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                        <TextBlock Text="{Binding Path=Age}" />
+
+                        <TextBlock Text="{Binding Path=Feeding}" />
+                        
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="3" Margin="48,10,48,91" Orientation="Vertical">
+            <TextBlock Text="New Animal"  />
+            <TextBlock Text="Name:" />
+            <TextBox Text="{Binding NewName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Age (years):" />
+            <TextBox Text="{Binding NewAge, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Feeding Type:" />
+            <ComboBox ItemsSource="{Binding FeedingList}" SelectedItem="{Binding NewFeeding}"/>
+            <TextBlock Text="Animal Type:" />
+            <ComboBox ItemsSource="{Binding Types}" SelectedItem="{Binding NewType}"/>
+            <TextBlock Text="Cage:" />
+            <ComboBox ItemsSource="{Binding Cages}" SelectedItem="{Binding NewCage}"/>
+            <TextBlock />
+            <Button x:Name="Add_Button" Content="Add New" Height="40" Width="80" Command="{Binding AddCommand}"/>
+        </StackPanel>
+        
+        <Button x:Name="Remove_Button" Content="Remove" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20" Height="40" Width="80" Command="{Binding DeleteCommand}"/>
+    </Grid>
+</Window>
