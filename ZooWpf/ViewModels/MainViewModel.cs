@@ -14,13 +14,13 @@ namespace ZooWpf.ViewModels
 {
     class MainViewModel : INotifyPropertyChanged
     {
-        private ZooContext db;
+        private UnitOfWork db;
 
 
         public MainViewModel()
         {
-            db = new ZooContext();
-            Cages = db.Cages.Include(c => c.Animals).Include(c => c.AnimalType).ToList();
+            db = new UnitOfWork();
+            Cages = db.Cages.GetAll().ToList();
             SelectedCage = Cages[0];
             FeedingList = new List<string>();
             FillFeeding();
@@ -37,7 +37,7 @@ namespace ZooWpf.ViewModels
         {
             get
             {
-                return db.Animals.Where(a => a.CageId == selectedCage.Id).Include(a => a.Cage).Include(a => a.AnimalType).ToList();
+                return db.Animals.GetAll().Where(a => a.CageId == selectedCage.Id).ToList();
             }
         }
 
@@ -45,7 +45,7 @@ namespace ZooWpf.ViewModels
         {
             get 
             {
-                return db.AnimalTypes.ToList();
+                return db.AnimalTypes.GetAll().ToList();
             }
         }
 
@@ -156,8 +156,8 @@ namespace ZooWpf.ViewModels
                       }
                       else
                       {
-                          db.Animals.Add(animal);
-                          db.SaveChanges();
+                          db.Animals.Create(animal);
+                          db.Save();
                       }
 
                       OnPropertyChanged("AnimalsInCage");
@@ -173,8 +173,8 @@ namespace ZooWpf.ViewModels
                 return deleteCommand ??
                   (deleteCommand = new RelayCommand(obj =>
                   {
-                      db.Animals.Remove(SelectedAnimal);
-                      db.SaveChanges();
+                      db.Animals.Delete(SelectedAnimal.Id);
+                      db.Save();
 
                       OnPropertyChanged("AnimalsInCage");
                   }));

@@ -79,9 +79,14 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Animal.cs" />
+    <Compile Include="Models\AnimalRepository.cs" />
     <Compile Include="Models\AnimalType.cs" />
+    <Compile Include="Models\AnimalTypeRepository.cs" />
     <Compile Include="Models\Cage.cs" />
+    <Compile Include="Models\CageRepository.cs" />
     <Compile Include="Models\Food.cs" />
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\UnitOfWork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZooManager.cs" />
