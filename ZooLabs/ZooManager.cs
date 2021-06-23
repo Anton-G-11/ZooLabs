@@ -18,8 +18,6 @@ namespace ZooLabs
         public ZooManager ()
         {
             db = new ZooContext();
-            //var TypeInclude = db.AnimalTypes.Include(t => t.Cages).Include(t1 => t1.Animals);
-            //var CageInclude = db.Cages.Include(c => c.AnimalType);
         }
         public void Test()
         {
